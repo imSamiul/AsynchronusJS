@@ -1,11 +1,17 @@
 //Call API with Async Await fucntion
 const toDos = async () => {
   //async function that always returns a promise
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos/");
+  const response = await fetch("https://jsonplaceholder.typicode.com/todoss/");
+  if (response.status !== 200) {
+    throw new Error("Something went wrong");
+  }
   const data = await response.json();
   return data;
 };
-toDos().then((data) => console.log(data));
+toDos()
+  .then((data) => console.log("Promised activated: ", data))
+  .catch((err) => console.log("Rejected: ", err.message));
+
 //Call Api with XML request
 
 // const toDos = (resource) => {
