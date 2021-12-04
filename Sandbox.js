@@ -1,15 +1,17 @@
-const toDos = (callback) => {
-  const request = new XMLHttpRequest();
-  request.addEventListener("readystatechange", () => {
-    if (request.readyState === 4 && request.status === 200) {
-      const data = JSON.parse(request.responseText);
-      callback(undefined, data);
-    } else if (request.readyState === 4) {
-      callback("There is an error in the request", undefined);
-    }
+const toDos = (resource) => {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.addEventListener("readystatechange", () => {
+      if (request.readyState === 4 && request.status === 200) {
+        const data = JSON.parse(request.responseText);
+        resolve(data);
+      } else if (request.readyState === 4) {
+        reject("Something went wrong");
+      }
+    });
+    request.open("GET", resource);
+    request.send();
   });
-  request.open("GET", "https://jsonplaceholder.typicode.com/todos/");
-  request.send();
 };
 
 // toDos((err, res) => {
@@ -21,26 +23,13 @@ const toDos = (callback) => {
 //   }
 // });
 
-//Promise Example
-const toDosPromise = () => {
-  return new Promise((resolve, reject) => {
-    // resolve("Promise activated");
-    reject("Promise rejected");
-  });
-};
-
-toDosPromise().then((res) => {
-  console.log(res);
-}),
-  (err) => {
-    console.log(err);
-  };
-toDosPromise()
-  .then((res) => {
-    console.log(res);
+//toDos with promises
+toDos("https://jsonplaceholder.typicode.com/todoss/")
+  .then((data) => {
+    console.log("Promise accepted: ", data);
   })
   .catch((err) => {
-    console.log(err);
+    console.log("Promise rejected: ", err);
   });
 
 console.log("Connected");
