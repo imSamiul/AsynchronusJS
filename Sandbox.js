@@ -11,16 +11,36 @@ const toDos = (callback) => {
   request.open("GET", "https://jsonplaceholder.typicode.com/todos/");
   request.send();
 };
-console.log("1");
-console.log(2);
-toDos((err, res) => {
-  console.log("Callback activated");
-  if (err) {
+
+// toDos((err, res) => {
+//   console.log("Callback activated");
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(res);
+//   }
+// });
+
+//Promise Example
+const toDosPromise = () => {
+  return new Promise((resolve, reject) => {
+    // resolve("Promise activated");
+    reject("Promise rejected");
+  });
+};
+
+toDosPromise().then((res) => {
+  console.log(res);
+}),
+  (err) => {
     console.log(err);
-  } else {
+  };
+toDosPromise()
+  .then((res) => {
     console.log(res);
-  }
-});
-console.log(3);
-console.log(4);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 console.log("Connected");
