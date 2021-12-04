@@ -12,6 +12,7 @@ toDosPromise().then((res) => {
   (err) => {
     console.log(err);
   };
+//better way to to like below
 toDosPromise()
   .then((res) => {
     console.log(res);
